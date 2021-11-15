@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p id="demo"></p>
+    <script>
+        // Create a class Product
+        class Product {
+            constructor(id, name, categoryId, saleDate, quility, isDelete) {
+                this.id = id;
+                this.name = name;
+                this.categoryId = categoryId;
+                this.saleDate = saleDate;
+                this.quility = quility;
+                this.isDelete = isDelete;
+            }
+
+        }
+
+        // Create 6 objects from Product
+        //bài 10
+        var listProduct = [{
+                id: 'p1',
+                name: "A",
+                categoryId: "c1",
+                saleDate: "2000-01-01",
+                quility: 1,
+                isDelete: true
+            }, {
+                id: "p2",
+                name: "B",
+                categoryId: "c2",
+                saleDate: "2022-02-02",
+                quility: 2,
+                isDelete: true
+            }, {
+                id: "p3",
+                name: "C",
+                categoryId: "c3",
+                saleDate: "2000-03-03",
+                quility: 3,
+                isDelete: false
+            }, {
+                id: "p4",
+                name: "D",
+                categoryId: "c4",
+                saleDate: "2000-01-04",
+                quility: 4,
+                isDelete: true
+            }, {
+                id: "p5",
+                name: "E",
+                categoryId: "c5",
+                saleDate: "2000-02-05",
+                quility: 5,
+                isDelete: true
+            }, {
+                id: "p6",
+                name: "F",
+                categoryId: "c6",
+                saleDate: "2000-03-06",
+                quility: 6,
+                isDelete: false
+            }
+
+        ];
+
+        function list() {
+
+            for (i = 0; i < listProduct.length; i++) {
+                console.log(listProduct[i].id + " " + listProduct[i].name + " " + listProduct[i].categoryId + " " + listProduct[i].saleDate + " " + listProduct[i].quility + " " + listProduct[i].isDelete)
+            }
+        }
+        // Test
+        // list()
+        // document.getElementById("demo").innerHTML = list()
+
+        //bài 11
+        // Find Product.name by id Product (For)
+        function filterProductById(listProduct, idProduct) {
+            var listProduct = [];
+            for (i = 0; i < listProduct.Length; i++) {
+                if (listProduct[i].id == idProduct) {
+                    console.log(listProduct[i].name);
+                } else
+                    break;
+
+            }
+        }
+
+        // Find Product.name by id Product     
+        function findProductbyId(listProduct, idProduct) {
+            return listProduct.find(element => element.id == idProduct).name
+        }
+        console.log(findProductbyId(listProduct, "p5"))
+
+
+        //Bài 12
+        // Find Product by Quility>0 (for)
+        function filterProductByQuility(listProduct) {
+            var listProduct = [];
+            var listProductFindQuality = [];
+            for (i = 0; i < listProduct.Length; i++) {
+                if (parseInt(listProduct[i].quility) > 0) {
+                    listProductFindQuality.push(listProduct[i]);
+                }
+            }
+            return listProductFindQuality;
+
+        }
+        // Find product by Quility >0 (FindIndex ES6)
+        function filterProductByQuility3(listProduct) {
+            return listProduct.filter(element => element.quility > 4 && element.isDelete)
+        }
+        console.log(filterProductByQuility3(listProduct))
+
+        // Bài 13
+        // find Product by SaleDate (for)
+        function filterProductBySaleDate(listProduct) {
+            var listProductFindSaleDate = [];
+            var listProduct = [];
+            var today = new Date();
+
+            for (i = 0; i < listProduct.Length; i++) {
+
+                if (new Date(listProduct[i].saleDate) > today) {
+                    listProductFindSaleDate.push(listProduct[i]);
+                }
+            }
+            return listProductFindSaleDate;
+        }
+
+        // find Product by SaleDate(ES6)
+        function filterProductBySaleDate2(listProduct) {
+            today = new Date()
+            return listProduct.filter(element => new Date(element.saleDate) > today && element.isDelete);
+        }
+        console.log(filterProductBySaleDate2(listProduct))
+
+        //Bài 14
+        // function total  quility by Reduce
+        function total2(listProduct) {
+            // Tính tổng
+            //const reducer = (previousValue, currentValues) => previousValue + currentValues;
+            // Kiểm tra xem có xóa chưa
+            var isDeleteTrue = listProduct.filter(element => element.isDelete);
+            var totalProduct = isDeleteTrue.reduce((prd1, prd2) => {
+                return prd1 + prd2.quility
+            }, 0);
+            return totalProduct;
+        }
+        console.log(total2(listProduct))
+
+        // Function total quility not by Reduce
+        function totalProduct2(listProduct) {
+            var listProduct = [];
+            var sum = 0;
+            for (i = 0; i < listProduct.Length; i++) {
+                sum += listProduct[i].quility;
+            }
+            return sum;
+        }
+
+        // Bài 15
+        // Find Product by CategoryId by for
+        function isHaveProductInCategory(listProduct, categoryId) {
+            var listProduct = [];
+            var product = new Product();
+            for (i = 0; i < listProduct.Length; i++) {
+                if (listProduct[i].categoryId == product.categoryId) {
+                    return true;
+                }
+                return false;
+            }
+
+        }
+
+        //Find Product by CategoryId by Find Index
+        function isHaveProductInCategory3(listProduct, cate) {
+            var listProduct = [];
+            var product = new Product();
+            var x = listProduct.findIndex(a => a.categoryId == cate)
+            if (x >= 0)
+                return true;
+            return false;
+
+        }
+
+        // Find Product by CategoryId by ES6 (has)
+        function isHaveProductInCategory(listProduct, categoryId) {
+            var listProduct = [];
+            var product = new Product();
+            listProduct.has(product.categoryId);
+        }
+
+        // Bai 16
+        // find product has quility>0 and saleDate>today
+        function all(listProduct) {
+            var listProduct = [];
+            var product = new Product();
+            var today = new Date();
+            var listProductResult = ['id', 'name'];
+            for (i = 0; i < listProduct.Length; i++) {
+                if (listProduct[i].quility > 0 && (new Date(listProduct[i].saleDate) > today)) {
+                    listProductResult.push(listProduct[i]);
+                }
+            }
+        }
+
+        function all2(listProduct) {
+            today = new Date()
+            return listProduct.filter(element => element.quility > 4 && new Date(element.saleDate) > today && element.isDelete)
+        }
+        console.log(all2(listProduct));
+    </script>
+
+</body>
+
+</html>
